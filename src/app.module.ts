@@ -2,9 +2,19 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthCheckModule } from './health-check/health-check.module';
-
+import { ThrottlerModule } from '@nestjs/throttler';
+import { ConfigModule } from '@nestjs/config';
 @Module({
-  imports: [HealthCheckModule],
+  imports: [
+    HealthCheckModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

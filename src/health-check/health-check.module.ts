@@ -17,6 +17,7 @@ import { CacheModule } from '@nestjs/cache-manager';
         transport: Transport.GRPC,
         options: {
           package: HEALTH_CHECK_PACKAGE_NAME,
+          url:process.env.GRPC_ENDPOINT,
           protoPath: join(__dirname, '../proto/health_check.proto'),
         },
       },

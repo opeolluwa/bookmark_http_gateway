@@ -1,12 +1,17 @@
 default:
     just --list 
 
+set dotenv-required
+set dotenv-path := "./.env"
+set export := true
+
+dev:
+    npm run start:dev
 
 [doc('copy the IDL files from the gRPC codegen ')]
 copy-proto:
     mkdir -p src/proto
     cp node_modules/bookmark_grpc_codegen/proto/* src/proto/
-
 
 compile-proto:
     #!/bin/bash
