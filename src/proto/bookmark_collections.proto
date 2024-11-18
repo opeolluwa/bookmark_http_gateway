@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+option go_package = "bookmarks/grpc/codegen/bookmark_collection";
+
+package BookmarkCollection;
+
+
+service BookmarkCollectionManager {
+  rpc CreateNewBookmarkCollection(NewBookmarkCollectionRequest)
+      returns (NewBookmarkCollectionResponse);
+  rpc GetBookmarkCollection(GetBookmarkCollectionRequest)
+      returns (GetBookmarkCollectionResponse);
+  rpc UpdateBookmarkCollection(UpdateBookmarkCollectionRequest)
+      returns (GetBookmarkCollectionResponse);
+  rpc DeleteBookmarkCollection(DeleteBookmarkCollectionRequest)
+      returns (DeleteBookmarkCollectionResponse);
+  rpc ListBookmarkCollections(ListBookmarkCollectionsRequest)
+      returns (ListBookmarkCollectionsResponse);
+  rpc ListBookmarkCollectionEntries(ListBookmarkCollectionEntryRequest)
+      returns (ListBookmarkCollectionEntryResponse);
+}
+
+message BookmarkCollectionEntries {
+  string title = 1;
+  string description = 2;
+  string created_at = 3;
+  string updated_at = 4;
+  string BookmarkCollection_id = 5;
+  map<string, string> more_fields = 6;
+}
+
+message NewBookmarkCollectionRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message NewBookmarkCollectionResponse {
+  string BookmarkCollection_id = 1;
+  string name = 3;
+  string description = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message GetBookmarkCollectionRequest { string BookmarkCollection_id = 1; }
+
+message GetBookmarkCollectionResponse {
+  string BookmarkCollection_id = 1;
+  string name = 2;
+  string description = 3;
+  string created_at = 4;
+  string updated_at = 5;
+  repeated BookmarkCollectionEntries entries = 7;
+}
+
+message UpdateBookmarkCollectionRequest {
+  string BookmarkCollection_id = 1;
+  optional string name = 2;
+  optional string description = 3;
+}
+
+message UpdateBookmarkCollectionResponse {
+  string BookmarkCollection_id = 1;
+  string status = 2;
+}
+
+message DeleteBookmarkCollectionRequest { string BookmarkCollection_id = 1; }
+
+message DeleteBookmarkCollectionResponse {
+  string BookmarkCollection_id = 1;
+  string message = 2;
+}
+
+message ListBookmarkCollectionsRequest {
+  uint32 page = 1;
+  uint32 page_size = 2;
+}
+
+message BookmarkCollection {
+  string BookmarkCollection_id = 1;
+  string name = 2;
+  string description = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+message ListBookmarkCollectionsResponse {
+  repeated BookmarkCollection BookmarkCollections = 1;
+  uint32 total_count = 2;
+}
+
+message ListBookmarkCollectionEntryRequest {
+  string BookmarkCollection_id = 1;
+  uint32 page = 4;
+  uint32 page_size = 5;
+}
+
+message ListBookmarkCollectionEntryResponse {
+  repeated BookmarkCollectionEntries BookmarkCollection_entries = 1;
+  uint32 total_count = 2;
+}

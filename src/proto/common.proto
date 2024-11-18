@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "bookmarks/grpc/codegen/common";
+
+package common;
+
+enum RequestStatus {
+  Success = 0;
+  Failed = 1;
+}
+
+message ErrorResponse {
+    int32 code = 1;
+    string message = 2;
+}

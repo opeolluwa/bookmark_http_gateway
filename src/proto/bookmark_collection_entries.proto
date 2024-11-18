@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option go_package = "bookmarks/grpc/codegen/bookmark_collection_entries";
+
+package bookmark_collections_entries;
+
+
+
+service BookmarkCollectionsEntriesManager {
+  rpc CreateNewBookmarkCollectionEntry(NewBookmarkCollectionsEntryRequest)
+      returns (GetBookmarkCollectionsEntryResponse);
+  rpc GetBookmarkCollectionEntry(GetBookmarkCollectionsEntryRequest)
+      returns (GetBookmarkCollectionsEntryResponse);
+  rpc UpdateBookmarkCollectionEntry(UpdateBookmarkCollectionsEntryRequest)
+      returns (GetBookmarkCollectionsEntryResponse);
+  rpc DeleteBookmarkCollectionEntry(UpdateBookmarkCollectionsEntryRequest)
+      returns (DeleteBookmarkCollectionsEntryResponse);
+}
+
+message NewBookmarkCollectionsEntryRequest {
+  string title = 1;
+  string description = 2;
+  string bookmark_collection_id = 3;
+  map<string, string> more_fields = 4;
+}
+
+message GetBookmarkCollectionsEntryResponse {
+  string title = 1;
+  string description = 2;
+  string created_at = 3;
+  string updated_at = 4;
+  string collection_id = 5;
+  map<string, string> more_fields = 6;
+  string entry_id = 8;
+}
+
+message GetBookmarkCollectionsEntryRequest {
+  string collection_id = 1;
+  string entry_id = 2;
+}
+
+message UpdateBookmarkCollectionsEntryRequest {
+  string collection_id = 1;
+  optional string title = 2;
+  optional string description = 3;
+  string entry_id = 4;
+}
+
+message DeleteBookmarkCollectionsEntryResponse {
+  string collection_id = 1;
+  string entry_id = 2;
+  string status = 4;
+}
